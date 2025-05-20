@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <h2>Your Stored Passwords</h2>
+
+  {% if passwords %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Label</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in passwords %}
+        <tr>
+          <td>{{ entry.label }}</td>
+          <td>{{ entry.password }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You have no stored passwords.</p>
+  {% endif %}
+
+  <hr>
+  <h3>Add New Password</h3>
+  <form method="POST" action="{{ url_for('main.dashboard') }}">
+    <div class="mb-3">
+      <label>Label</label>
+      <input class="form-control" name="label" required>
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input class="form-control" name="password" required>
+    </div>
+    <button class="btn btn-primary">Add</button>
+  </form>
+{% endblock %}
